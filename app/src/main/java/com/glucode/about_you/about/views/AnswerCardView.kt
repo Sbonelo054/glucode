@@ -30,24 +30,25 @@ class AnswerCardView @JvmOverloads constructor(
         }
 
     init {
-        val whiteColour = ContextCompat.getColor(context, R.color.white)
-        val blackColour = ContextCompat.getColor(context, R.color.black)
+        val whiteColour = ContextCompat.getColor(context, R.color.black)
+        val blackColour = ContextCompat.getColor(context, R.color.white)
         selectedCardBackgroundColor = blackColour
         selectedTextColor = blackColour
         deselectedTextColor = whiteColour
         radius = resources.getDimension(R.dimen.corner_radius_normal)
         elevation = resources.getDimension(R.dimen.elevation_normal)
-        setCardBackgroundColor(null)
+        binding.title.setTextColor(selectedTextColor)
+        setCardBackgroundColor(deselectedTextColor)
     }
 
     override fun setSelected(selected: Boolean) {
         super.setSelected(selected)
         if (selected) {
             setCardBackgroundColor(selectedCardBackgroundColor)
-            binding.title.setTextColor(selectedTextColor)
-        } else {
-            setCardBackgroundColor(null)
             binding.title.setTextColor(deselectedTextColor)
+        } else {
+            setCardBackgroundColor(deselectedTextColor)
+            binding.title.setTextColor(selectedTextColor)
         }
     }
 }

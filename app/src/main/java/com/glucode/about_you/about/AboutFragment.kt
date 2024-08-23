@@ -23,7 +23,6 @@ class AboutFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setUpQuestions()
     }
 
@@ -36,7 +35,6 @@ class AboutFragment: Fragment() {
             questionView.title = question.questionText
             questionView.answers = question.answerOptions
             questionView.selection = question.answer.index
-
             binding.container.addView(questionView)
         }
     }

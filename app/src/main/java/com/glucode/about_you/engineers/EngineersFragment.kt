@@ -9,6 +9,7 @@ import com.glucode.about_you.R
 import com.glucode.about_you.databinding.FragmentEngineersBinding
 import com.glucode.about_you.engineers.models.Engineer
 import com.glucode.about_you.mockdata.MockData
+import com.google.android.material.snackbar.Snackbar
 
 class EngineersFragment : Fragment() {
     private lateinit var binding: FragmentEngineersBinding
@@ -30,10 +31,41 @@ class EngineersFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_years) {
-            return true
+        when (item.itemId) {
+            R.id.action_years -> {
+                orderEngineers(MockData.engineers,"years")
+                Snackbar.make(binding.root,"Ordered by years", Snackbar.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.action_coffees -> {
+                orderEngineers(MockData.engineers,"coffees")
+                Snackbar.make(binding.root,"Ordered by coffees", Snackbar.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.action_bugs -> {
+                orderEngineers(MockData.engineers,"bugs")
+                Snackbar.make(binding.root,"Ordered by bugs", Snackbar.LENGTH_SHORT).show()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
+    }
+
+    private fun orderEngineers(engineers: List<Engineer>, order: String){
+        val engineersByCoffee = engineers.sortedWith(compareBy { it.quickStats.coffees })
+        val engineersByYears = engineers.sortedWith(compareBy { it.quickStats.years })
+        val engineersByBugs = engineers.sortedWith(compareBy { it.quickStats.bugs })
+        when (order) {
+            "years" -> {
+                setUpEngineersList(engineersByYears)
+            }
+            "coffees" -> {
+                setUpEngineersList(engineersByCoffee)
+            }
+            "bugs" -> {
+                setUpEngineersList(engineersByBugs)
+            }
+        }
     }
 
     private fun setUpEngineersList(engineers: List<Engineer>) {

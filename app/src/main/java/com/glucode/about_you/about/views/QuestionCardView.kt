@@ -54,14 +54,10 @@ class QuestionCardView @JvmOverloads constructor(
     }
 
     private fun onAnswerClick(view: View) {
-        if (!view.isSelected) {
             binding.answers.children.filter { it.isSelected }.forEach {
                 it.isSelected = false
+                val index = binding.answers.indexOfChild(view)
+                selection = index
             }
-        }
-    }
-
-    private fun setSelection() {
-
     }
 }
